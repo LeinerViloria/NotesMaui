@@ -1,5 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDatabase(builder.Configuration);
@@ -14,6 +15,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapControllers();
+
 
 app.MapGet("/", () => "Hello World!");
 
