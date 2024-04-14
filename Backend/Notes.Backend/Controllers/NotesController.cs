@@ -24,6 +24,19 @@ public class NotesController(IDbContextFactory<NotesContext> contextFactory) : C
         return Data;
     }
 
+    [HttpGet("{name}")]
+    public IEnumerable<Note> Get(string Name)
+    {
+        using var context = ContextFactory.CreateDbContext();
+
+        var Data = context.Set<Note>()
+            .AsNoTracking()
+            .Where(x => x.Name.Contains(Name))
+            .ToList();
+
+        return Data;
+    }
+
     [HttpPost]
     public Note Create([FromBody] Note note)
     {
